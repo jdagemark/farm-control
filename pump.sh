@@ -10,11 +10,13 @@ function echo_log {
 
 # get input
 print_usage() {
-        echo "Usage: pump.sh --duration 120"
+        echo "Usage: pump.sh --pump-pin 8 --duration 120"
         echo ""
         echo "Options:"
         echo " -h, --help"
         echo "    Print detailed help screen"
+	echo " -p, --pump-pin"
+	echo "    Which pin that controls the pump."
         echo " -d, --duration"
         echo "    Duration the pump should run in seconds."
         echo ""
@@ -41,6 +43,14 @@ while test -n "$1"; do
         -h)
             print_usage
             exit 0
+            ;;
+        --pump-pin)
+            PUMP=$2
+            shift
+            ;;
+        -p)
+            PUMP=$2
+            shift
             ;;
         --duration)
             DURATION=$2
