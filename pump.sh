@@ -69,7 +69,7 @@ while test -n "$1"; do
     shift
 done
 
-echo_log "Pump starting"
+echo_log "Pump on pin $PUMP starting"
 
 # function for initializing the pins
 function pump_initialize {
@@ -97,7 +97,7 @@ function pump_stop {
 # unexpected abort
 function abort {
 	pump_deinitialize
-	echo_log "Pumping aborted"
+	echo_log "Pump on pin $PIN aborted"
 	exit 255
 }
 
@@ -110,4 +110,4 @@ sleep $DURATION
 pump_stop
 pump_deinitialize
 
-echo_log "Pump finished"
+echo_log "Pump on pin $PUMP finished"
