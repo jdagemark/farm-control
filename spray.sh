@@ -69,7 +69,7 @@ while test -n "$1"; do
     shift
 done
 
-echo_log "Spray starting"
+echo_log "Spray on pin $SPRAY starting"
 
 # function for initializing the pins
 function spray_initialize {
@@ -97,7 +97,7 @@ function spray_stop {
 # unexpected abort
 function abort {
 	spray_deinitialize
-	echo_log "Spray aborted"
+	echo_log "Spray on pin $SPRAY aborted"
 	exit 255
 }
 
@@ -110,4 +110,4 @@ sleep $DURATION
 spray_stop
 spray_deinitialize
 
-echo_log "Spray finished"
+echo_log "Spray on pin $SPRAY finished"

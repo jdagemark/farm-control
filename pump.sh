@@ -97,7 +97,7 @@ function pump_stop {
 # unexpected abort
 function abort {
 	pump_deinitialize
-	echo_log "Pump on pin $PIN aborted"
+	echo_log "Pump on pin $PUMP aborted"
 	exit 255
 }
 
