@@ -1,0 +1,21 @@
+# m h dom mon dow user	command
+
+### PUMP ###
+# run the pump to the pressure tank during day
+1 8,10,12,14,16,18,20	* * *	root    /root/pump.sh --pump-pin 8 --duration 180
+
+# run the pump to the pressure tank during night
+1 23,2,5   * * *   		root    /root/pump.sh --pump-pin 8 --duration 180
+
+# run the pump for return water during day
+10 8,9,10,11,12,13,14,15,16,17,18,19,20 * * *	root	/root/pump.sh --pump-pin 7 --duration 180
+
+# run the pump for return water during night
+10 21,22,0,2,4,6,7 * * *      			root    /root/pump.sh --pump-pin 7 --duration 180
+
+### SPRAY ###
+# Spray during day
+*/5 6,7,8,9,10,11,12,13,14,15,16,17,18,19 * * * root /root/spray.sh --spray-pin 11 --duration 4
+
+# Spray during night
+*/10 20,21,22,23,0,1,2,3,4,5 * * * 		root /root/spray.sh --spray-pin 11 --duration 4
