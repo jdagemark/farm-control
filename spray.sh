@@ -9,7 +9,7 @@ SPRAY="11"
 DURATION="5"
 
 function echo_log {
-	echo "$1" | logger
+    echo "$1" | logger
 }
 
 # get input
@@ -19,8 +19,8 @@ print_usage() {
     echo "Options:"
     echo " -h, --help"
     echo "    Print detailed help screen"
-	echo " -p, --spray-pin"
-	echo "    Which pin that controls the spray."
+    echo " -p, --spray-pin"
+    echo "    Which pin that controls the spray."
     echo " -d, --duration"
     echo "    Duration the spray should run in seconds."
     echo ""
@@ -77,32 +77,32 @@ echo_log "Spray on pin $SPRAY starting"
 
 # function for initializing the pins
 function spray_initialize {
-	echo "$SPRAY" > /sys/class/gpio/export
-	echo "out" > /sys/class/gpio/gpio$SPRAY/direction
-	echo "0" > /sys/class/gpio/gpio$SPRAY/value
+    echo "$SPRAY" > /sys/class/gpio/export
+    echo "out" > /sys/class/gpio/gpio$SPRAY/direction
+    echo "0" > /sys/class/gpio/gpio$SPRAY/value
 }
 
 # function for deinitialize the pins
 function spray_deinitialize {
-	echo "0" > /sys/class/gpio/gpio$SPRAY/value
+    echo "0" > /sys/class/gpio/gpio$SPRAY/value
     echo "$SPRAY" > /sys/class/gpio/unexport
 }
 
 # start spray
 function spray_start {
-	echo "1" > /sys/class/gpio/gpio$SPRAY/value
+    echo "1" > /sys/class/gpio/gpio$SPRAY/value
 }
 
 # stop spray
 function spray_stop {
-	echo "0" > /sys/class/gpio/gpio$SPRAY/value
+    echo "0" > /sys/class/gpio/gpio$SPRAY/value
 }
 
 # unexpected abort
 function abort {
-	spray_deinitialize
-	echo_log "Spray on pin $SPRAY aborted"
-	exit 255
+    spray_deinitialize
+    echo_log "Spray on pin $SPRAY aborted"
+    exit 255
 }
 
 trap abort SIGINT SIGTERM

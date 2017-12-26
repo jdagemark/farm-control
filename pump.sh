@@ -10,7 +10,7 @@ DURATION="180"
 SOLENOID=""
 
 function echo_log {
-	echo "$1" | logger
+    echo "$1" | logger
 }
 
 # get input
@@ -20,8 +20,8 @@ print_usage() {
     echo "Options:"
     echo " -h, --help"
     echo "    Print detailed help screen"
-	echo " -p, --pump-pin"
-	echo "    Which pin that controls the pump."
+    echo " -p, --pump-pin"
+    echo "    Which pin that controls the pump."
     echo " -d, --duration"
     echo "    Duration the pump should run in seconds."
     echo " -s, --solenoid"
@@ -87,16 +87,16 @@ done
 
 # function for initializing pins
 function gpio_initialize {
-	echo "$1" > /sys/class/gpio/export
-	echo "out" > /sys/class/gpio/gpio$1/direction
-	echo "0" > /sys/class/gpio/gpio$1/value
+    echo "$1" > /sys/class/gpio/export
+    echo "out" > /sys/class/gpio/gpio$1/direction
+    echo "0" > /sys/class/gpio/gpio$1/value
     echo_log "Pin $1 initialized"
 }
 
 # function for deinitialize pins
 function gpio_deinitialize {
     if [ -e /sys/class/gpio/gpio$1/value ] ; then
-	    echo "0" > /sys/class/gpio/gpio$1/value
+        echo "0" > /sys/class/gpio/gpio$1/value
         echo "$1" > /sys/class/gpio/unexport
         echo_log "Pin $1 deinitialized"
     fi
@@ -104,23 +104,23 @@ function gpio_deinitialize {
 
 # toggle gpio pin on
 function gpio_on {
-	echo "1" > /sys/class/gpio/gpio$1/value
+    echo "1" > /sys/class/gpio/gpio$1/value
 }
 
 # toggle gpio pin off
 function gpio_off {
-	echo "0" > /sys/class/gpio/gpio$1/value
+    echo "0" > /sys/class/gpio/gpio$1/value
 }
 
 # unexpected abort
 function abort {
-	gpio_deinitialize $PUMP
-	echo_log "Pump on pin $PUMP aborted"
+    gpio_deinitialize $PUMP
+    echo_log "Pump on pin $PUMP aborted"
     if [ ! -z "$SOLENOID" ] ; then
         gpio_deinitialize $SOLENOID
         echo_log "Solenoid on pin $SOLENOID aborted"
     fi
-	exit 255
+    exit 255
 }
 
 trap abort SIGINT SIGTERM
