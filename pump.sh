@@ -10,27 +10,27 @@ function echo_log {
 
 # get input
 print_usage() {
-        echo "Usage: pump.sh --pump-pin 8 --duration 120"
-        echo ""
-        echo "Options:"
-        echo " -h, --help"
-        echo "    Print detailed help screen"
+    echo "Usage: pump.sh --pump-pin 8 --duration 120"
+    echo ""
+    echo "Options:"
+    echo " -h, --help"
+    echo "    Print detailed help screen"
 	echo " -p, --pump-pin"
 	echo "    Which pin that controls the pump."
-        echo " -d, --duration"
-        echo "    Duration the pump should run in seconds."
-        echo ""
-        echo "Example:"
-        echo "pump.sh --duration 120"
-        echo ""
+    echo " -d, --duration"
+    echo "    Duration the pump should run in seconds."
+    echo ""
+    echo "Example:"
+    echo "pump.sh --duration 120"
+    echo ""
 }
 
 # Make sure the correct number of command line
 # arguments have been supplied
 
 if [ $# -lt 1 ]; then
-        print_usage
-        exit 3
+    print_usage
+    exit 3
 fi
 
 # read input variables
@@ -81,7 +81,7 @@ function pump_initialize {
 # function for deinitialize the pins
 function pump_deinitialize {
 	echo "0" > /sys/class/gpio/gpio$PUMP/value
-        echo "$PUMP" > /sys/class/gpio/unexport
+    echo "$PUMP" > /sys/class/gpio/unexport
 }
 
 # start pump

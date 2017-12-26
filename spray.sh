@@ -10,27 +10,27 @@ function echo_log {
 
 # get input
 print_usage() {
-        echo "Usage: spray.sh --spray-pin 11 --duration 5"
-        echo ""
-        echo "Options:"
-        echo " -h, --help"
-        echo "    Print detailed help screen"
+    echo "Usage: spray.sh --spray-pin 11 --duration 5"
+    echo ""
+    echo "Options:"
+    echo " -h, --help"
+    echo "    Print detailed help screen"
 	echo " -p, --spray-pin"
 	echo "    Which pin that controls the spray."
-        echo " -d, --duration"
-        echo "    Duration the spray should run in seconds."
-        echo ""
-        echo "Example:"
-        echo "spray.sh --spray-pin 11 --duration 5"
-        echo ""
+    echo " -d, --duration"
+    echo "    Duration the spray should run in seconds."
+    echo ""
+    echo "Example:"
+    echo "spray.sh --spray-pin 11 --duration 5"
+    echo ""
 }
 
 # Make sure the correct number of command line
 # arguments have been supplied
 
 if [ $# -lt 1 ]; then
-        print_usage
-        exit 3
+    print_usage
+    exit 3
 fi
 
 # read input variables
@@ -81,7 +81,7 @@ function spray_initialize {
 # function for deinitialize the pins
 function spray_deinitialize {
 	echo "0" > /sys/class/gpio/gpio$SPRAY/value
-        echo "$SPRAY" > /sys/class/gpio/unexport
+    echo "$SPRAY" > /sys/class/gpio/unexport
 }
 
 # start spray
