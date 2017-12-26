@@ -10,7 +10,7 @@ function echo_log {
 
 # get input
 print_usage() {
-    echo "Usage: pump.sh --pump-pin 8 --duration 120"
+    echo "Usage: pump.sh --pump-pin <pin> --duration <seconds>"
     echo ""
     echo "Options:"
     echo " -h, --help"
@@ -21,7 +21,7 @@ print_usage() {
     echo "    Duration the pump should run in seconds."
     echo ""
     echo "Example:"
-    echo "pump.sh --duration 120"
+    echo "pump.sh --pump-pin 8 --duration 120"
     echo ""
 }
 
@@ -69,34 +69,34 @@ while test -n "$1"; do
     shift
 done
 
-echo_log "Pump on pin $PUMP starting"
-
-# function for initializing the pins
-function pump_initialize {
-	echo "$PUMP" > /sys/class/gpio/export
-	echo "out" > /sys/class/gpio/gpio$PUMP/direction
-	echo "0" > /sys/class/gpio/gpio$PUMP/value
+# function for initializing pins
+function gpio_initialize {
+	echo "$1" > /sys/class/gpio/export
+	echo "out" > /sys/class/gpio/gpio$1/direction
+	echo "0" > /sys/class/gpio/gpio$1/value
+    echo_log "Pin $1 initilized"
 }
 
-# function for deinitialize the pins
-function pump_deinitialize {
-	echo "0" > /sys/class/gpio/gpio$PUMP/value
-    echo "$PUMP" > /sys/class/gpio/unexport
+# function for deinitialize pins
+function gpio_deinitialize {
+	echo "0" > /sys/class/gpio/gpio$1/value
+    echo "$1" > /sys/class/gpio/unexport
+    echo_log "Pin $1 deinitialized"
 }
 
-# start pump
-function pump_start {
-	echo "1" > /sys/class/gpio/gpio$PUMP/value
+# toggle gpio pin on
+function gpio_on {
+	echo "1" > /sys/class/gpio/gpio$1/value
 }
 
-# stop pump
-function pump_stop {
-	echo "0" > /sys/class/gpio/gpio$PUMP/value
+# toggle gpio pin off
+function gpio_off {
+	echo "0" > /sys/class/gpio/gpio$1/value
 }
 
 # unexpected abort
 function abort {
-	pump_deinitialize
+	gpio_deinitialize $PUMP
 	echo_log "Pump on pin $PUMP aborted"
 	exit 255
 }
@@ -104,10 +104,10 @@ function abort {
 trap abort SIGINT SIGTERM
 
 # Do the work
-pump_initialize
-pump_start
+gpio_initialize $PUMP
+gpio_on $PUMP
+echo_log "Pump on pin $PUMP on"
 sleep $DURATION
-pump_stop
-pump_deinitialize
-
-echo_log "Pump on pin $PUMP finished"
+gpio_off $PUMP
+gpio_deinitialize $PUMP
+echo_log "Pump on pin $PUMP off"
