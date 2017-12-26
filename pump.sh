@@ -91,9 +91,11 @@ function gpio_initialize {
 
 # function for deinitialize pins
 function gpio_deinitialize {
-	echo "0" > /sys/class/gpio/gpio$1/value
-    echo "$1" > /sys/class/gpio/unexport
-    echo_log "Pin $1 deinitialized"
+    if [ -e /sys/class/gpio/gpio$1/value ] ; then
+	    echo "0" > /sys/class/gpio/gpio$1/value
+        echo "$1" > /sys/class/gpio/unexport
+        echo_log "Pin $1 deinitialized"
+    fi
 }
 
 # toggle gpio pin on
