@@ -2,10 +2,10 @@
 
 ### PUMP ###
 # run the pump to the pressure tank during day
-1 8,10,12,14,16,18,20	* * *	root    /root/pump.sh --pump-pin 8 --duration 180
+1 8,10,12,14,16,18,20	* * *	root    /root/pump.sh --pump-pin 8 --duration 180 --solenoid 9
 
 # run the pump to the pressure tank during night
-1 23,2,5   * * *   		root    /root/pump.sh --pump-pin 8 --duration 180
+1 23,2,5   * * *   		root    /root/pump.sh --pump-pin 8 --duration 180 --solenoid 9
 
 # run the pump for return water during day
 10 8,9,10,11,12,13,14,15,16,17,18,19,20 * * *	root	/root/pump.sh --pump-pin 7 --duration 180
