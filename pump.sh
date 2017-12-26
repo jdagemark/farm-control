@@ -1,4 +1,8 @@
 #!/bin/bash
+#
+# Simple script that can be used to control pumps for an aeroponic farm
+# the script toggles gpio pins on a raspberry pi
+#
 
 # default values
 PUMP="8"

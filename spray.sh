@@ -1,4 +1,8 @@
 #!/bin/bash
+#
+# Simple script that can be used to control spray intervalls for
+# an aeroponic farm. The script toggles gipo pins on a raspberry pi.
+#
 
 # default values
 SPRAY="11"
