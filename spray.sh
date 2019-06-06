@@ -6,7 +6,7 @@
 
 # default values
 SPRAY="11"
-DURATION="5"
+DURATION="3"
 
 function echo_log {
     echo "$1" | logger
